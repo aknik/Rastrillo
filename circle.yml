@@ -1,0 +1,20 @@
+machine:
+  python:
+    version: 2.7.5
+dependencies:
+  pre:
+    
+    - pip install ecdsa
+    - pip install numpy
+    
+test:
+  override:
+      
+    - python rastrillo.py
+    
+    
+    
+    
+    
+    
+    

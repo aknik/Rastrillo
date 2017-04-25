@@ -1,0 +1,3 @@
+# apt install python-ecdsa python-numpy libwww-perl
+ecdsa
+numpy
