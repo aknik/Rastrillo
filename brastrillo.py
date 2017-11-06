@@ -13,7 +13,7 @@ while True:
 	n = n + 1
 	# Seleccion de la fuente de numeros aleatorios http://www.random.org o http://www.fourmilab.ch
 	#bytes = randomorg()
-	#bytes = fourmi(1)
+	#bytes = fourmi(1)import re
 	#bytes = fourmi2()
 	#bytes = paleat (256/8)
 	bytes = aleat(256)
@@ -34,25 +34,29 @@ while True:
 		#pk =(int(hashlib.sha256(file('hiddeninplainsight.jpg','rb+').read()).hexdigest(),16))
 		#1FfmbHfnpaZjKFvyi1okTjJJusN455paPH
 		pubkey = pubb(pk)  
-		url = "https://blockchain.info/es/q/addressbalance/" + addy(pk)
-		# url = "https://blockchain.info/es/q/addressbalance/" + "1FfmbHfnpaZjKFvyi1okTjJJusN455paPH" 
+		url = "https://www.blockonomics.co/api/balance" 
+		# url = "https://www.blockonomics.co/api/balance " + "1FfmbHfnpaZjKFvyi1okTjJJusN455paPH" 
+		agent = '"Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/525.19 (KHTML, like Gecko) Chrome/1.0.154.53 Safari/525.19"'
+		headers = {
+		'User-Agent': agent,
+		'Accept-Encoding': 'gzip',
+		'accept-language': 'es-ES',
+		'Connection': 'Keep-Alive',
+		}
+
 		while (status_code != 200):
 
-			r = requests.get(url)
+			r = requests.post(url, headers = headers,json={"addr": addy(pk)})
 			status_code = r.status_code
+			amount = (r.json()['response'][0]['confirmed'])
+			print r.json()['response'][0]['addr'], amount , status_code
+			
 			if status_code == 429: sleep(10)
 			if status_code == 500: status_code = 200
-			sleep(1)
-			cantidad = r.text
-			if isfloat(cantidad):
-				amount = float (cantidad)
-				print n , amount, status_code
-				# sys.stdout.write('%s\r' % str(n))
-				# sys.stdout.flush()
+            
 		status_code = 0
 		if amount > 0 : 
 			reply(str(pk))
 			outfile.write(str(amount/100000000) +","+ addy(pk) +","+ numtowif(pk) +"\n")
-
-outfile.close()
+			outfile.close()
 

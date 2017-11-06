@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+import json
 import requests 
 import os 
 import sys
@@ -134,3 +134,6 @@ def fourmi2():
         bytez = "0X" + line[:64]
      
  return bytez
+ 
+def get_num(x):
+    return float(''.join(ele for ele in x if ele.isdigit() or ele == '.'))
