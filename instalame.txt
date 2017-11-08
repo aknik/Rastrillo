@@ -1,0 +1,2 @@
+apt-get install python-ecdsa python-numpy python-pip git
+

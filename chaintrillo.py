@@ -34,8 +34,7 @@ while True:
 		#pk =(int(hashlib.sha256(file('hiddeninplainsight.jpg','rb+').read()).hexdigest(),16))
 		#1FfmbHfnpaZjKFvyi1okTjJJusN455paPH
 		pubkey = pubb(pk)  
-		url = "https://www.blockonomics.co/api/balance" 
-		# url = "https://www.blockonomics.co/api/balance " + "1FfmbHfnpaZjKFvyi1okTjJJusN455paPH" 
+		url = "https://chain.so/api/v2/get_address_balance/BITCOIN/"+addy(pk)
 		agent = '"Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/525.19 (KHTML, like Gecko) Chrome/1.0.154.53 Safari/525.19"'
 		headers = {
 		'User-Agent': agent,
@@ -46,18 +45,19 @@ while True:
 
 		while (status_code != 200):
 
-			r = requests.post(url, headers = headers,json={"addr": addy(pk)})
+			r = requests.get(url)
 			status_code = r.status_code
-                        #print r.text
-                        if status_code == 200:
-			    amount = float(r.json()['response'][0]['confirmed'])
-			    print n , amount , status_code
-			sleep(5)
-			if status_code == 503: sleep(1)
+			print r.text
+
+			
+
+			if status_code == 429: sleep(10)
+			if status_code == 500: status_code = 200
             
 		status_code = 0
 		if amount > 0 : 
 			reply(str(pk))
 			outfile.write(str(amount/100000000) +","+ addy(pk) +","+ numtowif(pk) +"\n")
-			outfile.close()
+
+outfile.close()
 

@@ -3,7 +3,7 @@ clear
 for i in {1..100000}
 do
    echo "Corriendo $i veces"
-   python a.py
+   python c.py
    sleep 3
 done
 
