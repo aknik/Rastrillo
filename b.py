@@ -14,12 +14,11 @@ while True:
 	url = "https://api.blocktrail.com/v1/btc/address/"+addy(pk)+"?api_key=4d82c5bf7bd351d2b526f9a2a4f63369176c6ae3"
 	agent = '"Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/525.19 (KHTML, like Gecko) Chrome/1.0.154.53 Safari/525.19"'
 	headers = {	'User-Agent': agent,'Accept-Encoding': 'gzip','accept-language': 'es-ES','Connection': 'Keep-Alive',}
-
 	while (status_code != 200):
 		r = requests.get(url)
 		status_code = r.status_code
 		if status_code == 429 : sleep(10) 
-		if status_code == 404 : status_code == 200
+		if status_code == 404 : status_code = 200
 		if status_code == 500: break
 		try:
 		    amount = float((r.json()['balance']))
